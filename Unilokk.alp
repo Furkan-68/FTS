@@ -7,7 +7,7 @@
 <AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.8.0.202208091057" AlpVersion="8.7.5">
 <Model>
 	<Id>1678916651485</Id>
-	<Name><![CDATA[Unilokk_v8]]></Name>
+	<Name><![CDATA[Unilokk]]></Name>
 	<EngineVersion>6</EngineVersion>
 	<JavaPackageName><![CDATA[unilokk_v8]]></JavaPackageName>
 	<ModelTimeUnit><![CDATA[Second]]></ModelTimeUnit>
@@ -319,7 +319,7 @@
 					</Parameters>
 					<ReplicationFlag>true</ReplicationFlag>
 					<Replication Class="CodeValue">
-						<Code><![CDATA[1]]></Code>
+						<Code><![CDATA[2]]></Code>
 					</Replication>
 					<CollectionType>ARRAY_LIST_BASED</CollectionType>
 					<InEnvironment>true</InEnvironment>	
@@ -737,6 +737,73 @@
 
 					<Z>0</Z>
 				</Network>
+    			<BarChart>
+					<Id>1679582301033</Id>
+					<Name><![CDATA[chart]]></Name>
+					<X>80</X><Y>640</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<AutoUpdate>true</AutoUpdate>
+					<OccurrenceAtTime>true</OccurrenceAtTime>
+					<OccurrenceDate>1679644800000</OccurrenceDate>
+					<OccurrenceTime Class="CodeUnitValue">
+						<Code><![CDATA[0]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</OccurrenceTime>
+					<RecurrenceCode Class="CodeUnitValue">
+						<Code><![CDATA[1]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</RecurrenceCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Width>260</Width>
+					<Height>210</Height>
+					<BackgroundColor/>
+					<BorderColor/>
+					<ChartArea>
+						<XOffset>50</XOffset>
+						<YOffset>30</YOffset>
+						<Width>180</Width>
+						<Height>120</Height>
+						<BackgroundColor>-1</BackgroundColor>
+						<BorderColor>-16777216</BorderColor>
+						<GridColor>-12566464</GridColor>
+					</ChartArea>
+					<Legend>
+						<Place>SOUTH</Place>
+						<TextColor>-16777216</TextColor>
+						<Size>30</Size>
+					</Legend>
+					<Labels>
+						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
+						<VerLabelsPosition>DEFAULT</VerLabelsPosition>
+						<TextColor>-12566464</TextColor>
+					</Labels>
+					<ShowLegend>true</ShowLegend>
+					<DataItem>
+					<Id>0</Id>
+					<Expression><![CDATA[AGVs(0).chargelevel]]></Expression>
+					<Color>-2448096</Color>
+					<Expression2Flag>true</Expression2Flag>
+						<Title><![CDATA[item]]></Title>
+					</DataItem>
+					<DataItem>
+					<Id>0</Id>
+					<Expression><![CDATA[AGVs(1).chargelevel]]></Expression>
+					<Color>-9728477</Color>
+					<Expression2Flag>true</Expression2Flag>
+						<Title><![CDATA[item1]]></Title>
+					</DataItem>
+					<ScaleFromExpression><![CDATA[0]]></ScaleFromExpression>
+					<ScaleToExpression><![CDATA[1]]></ScaleToExpression>
+					<ScaleType>AUTO</ScaleType>
+					<Bars>
+						<Direction>UP</Direction>
+						<RelativeWidth>0.8</RelativeWidth>
+					</Bars>
+    			</BarChart>
 			</Presentation>
 
 				</Level>
@@ -1459,21 +1526,7 @@ main.Box.add(Unilokk)]]></EntryAction>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1678917110730</Id>
-					<Name><![CDATA[selected_agv_chargelvl]]></Name>
-					<Description><![CDATA[battery chargelevel from selected agv 
-Vllt. Umbenennen in agv_chargelvl]]></Description>
-					<X>-220</X><Y>150</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
+						<Type><![CDATA[double]]></Type>        
 					</Properties>
 				</Variable>
 			</Variables>
@@ -1505,12 +1558,12 @@ Am Ende dieser Schleife sollte das "current_agv" Objekt dasjenige AGV-Objekt sei
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100" Height="30">
 						<EntryAction><![CDATA[current_agv = main.AGVs(0);
-int max_agv_chargelvl = 0;
+double max_agv_chargelvl = 0;
 for (AGV selected_agv : main.AGVs)
 {
-if (selected_agv_chargelvl >= max_agv_chargelvl)
+if (selected_agv.chargelevel >= max_agv_chargelvl && selected_agv.chargelevel >30)
 	{
-	max_agv_chargelvl = selected_agv_chargelvl;
+	max_agv_chargelvl = selected_agv.chargelevel;
 	current_agv = selected_agv;
 	}
 }]]></EntryAction>
@@ -1526,8 +1579,7 @@ if (selected_agv_chargelvl >= max_agv_chargelvl)
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100" Height="30">
-						<EntryAction><![CDATA[send("start_charging", current_agv);
-//send("start_charging", main.AGVs(0));]]></EntryAction>
+						<EntryAction><![CDATA[send("start_charging", current_agv);]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -1545,8 +1597,7 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100" Height="30">
-						<EntryAction><![CDATA[send("start_driving", current_agv);
-//send("start_driving", main.AGVs(0));]]></EntryAction>
+						<EntryAction><![CDATA[send("start_driving", current_agv);]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -1964,6 +2015,21 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 						</ParameterEditor>
 					</Properties>                 
 				</Variable>
+				<Variable Class="CollectionVariable">
+					<Id>1679583882520</Id>
+					<Name><![CDATA[current_load]]></Name>
+					<X>-130</X><Y>160</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" AccessType="public" StaticVariable="false">
+						<CollectionClass><![CDATA[ArrayList]]></CollectionClass>
+						<ElementClass><![CDATA[Product]]></ElementClass>
+						<ValueElementClass><![CDATA[String]]></ValueElementClass>
+					</Properties>
+
+				</Variable>
 			</Variables>
 			<Dependences>
 				<Link SourceId="1678916964928" TargetId="1678916976877" Polarity="null">
@@ -1992,6 +2058,7 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100.50568900126422" Height="30">
+						<EntryAction><![CDATA[dischargerate=-10;]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2006,7 +2073,7 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 					<Properties Width="100.50568900126422" Height="30">
 						<EntryAction><![CDATA[moveTo(main.Stations(i));
 
-dischargerate=10;]]></EntryAction>
+dischargerate=1.0;]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2020,10 +2087,10 @@ dischargerate=10;]]></EntryAction>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100.50568900126422" Height="30">
-						<EntryAction><![CDATA[//Produkte aufladen
+						<EntryAction><![CDATA[current_load.add(main.Box.getLast());
+main.Box.removeLast();
 
-
-dischargerate=5]]></EntryAction>
+dischargerate=0.5]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2049,7 +2116,7 @@ if (main.Stations.size()>= i)
 	}
 }
 
-dischargerate=15;]]></EntryAction>
+dischargerate=1.5;]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2066,7 +2133,7 @@ dischargerate=15;]]></EntryAction>
 						<EntryAction><![CDATA[//Produkte abladen
 
 
-dischargerate=5]]></EntryAction>
+dischargerate=0.5]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2092,7 +2159,7 @@ dischargerate=5]]></EntryAction>
 					<Properties Width="100.50568900126422" Height="30">
 						<EntryAction><![CDATA[moveTo(main.Chargingstation);
 
-dischargerate=10;]]></EntryAction>
+dischargerate=1.0;]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2373,7 +2440,7 @@ dischargerate=10;]]></EntryAction>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>-170</Y></Point>
 					</Points>
-					<IconOffset>50.0</IconOffset>
+					<IconOffset>90.0</IconOffset>
 					<Properties Source="1679329363028" Target="1679329293143" Trigger="message">
 						<Timeout Class="CodeUnitValue">
 							<Code><![CDATA[1]]></Code>
@@ -2861,133 +2928,6 @@ dischargerate=10;]]></EntryAction>
 			</Presentation>
 
 				</Group>
-    			<BarChart>
-					<Id>1679339771906</Id>
-					<Name><![CDATA[Chargelevel]]></Name>
-					<X>40</X><Y>640</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<AutoUpdate>true</AutoUpdate>
-					<OccurrenceAtTime>true</OccurrenceAtTime>
-					<OccurrenceDate>1678953600000</OccurrenceDate>
-					<OccurrenceTime Class="CodeUnitValue">
-						<Code><![CDATA[0]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</OccurrenceTime>
-					<RecurrenceCode Class="CodeUnitValue">
-						<Code><![CDATA[1]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</RecurrenceCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Width>260</Width>
-					<Height>210</Height>
-					<BackgroundColor/>
-					<BorderColor/>
-					<ChartArea>
-						<XOffset>50</XOffset>
-						<YOffset>30</YOffset>
-						<Width>180</Width>
-						<Height>120</Height>
-						<BackgroundColor>-1</BackgroundColor>
-						<BorderColor>-16777216</BorderColor>
-						<GridColor>-12566464</GridColor>
-					</ChartArea>
-					<Legend>
-						<Place>SOUTH</Place>
-						<TextColor>-16777216</TextColor>
-						<Size>30</Size>
-					</Legend>
-					<Labels>
-						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
-						<VerLabelsPosition>DEFAULT</VerLabelsPosition>
-						<TextColor>-12566464</TextColor>
-					</Labels>
-					<ShowLegend>true</ShowLegend>
-					<DataItem>
-					<Id>1679339771899</Id>
-					<Expression><![CDATA[chargelevel]]></Expression>
-					<Color>-2448096</Color>
-					<Expression2Flag>true</Expression2Flag>
-						<Title><![CDATA[chargelevel]]></Title>
-					</DataItem>
-					<ScaleFromExpression><![CDATA[0]]></ScaleFromExpression>
-					<ScaleToExpression><![CDATA[1]]></ScaleToExpression>
-					<ScaleType>HUNDRED_PERCENTS</ScaleType>
-					<Bars>
-						<Direction>UP</Direction>
-						<RelativeWidth>0.8</RelativeWidth>
-					</Bars>
-    			</BarChart>
-    			<TimePlot>
-					<Id>1679339814493</Id>
-					<Name><![CDATA[Chargelevel2]]></Name>
-					<X>310</X><Y>640</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<AutoUpdate>true</AutoUpdate>
-					<OccurrenceAtTime>true</OccurrenceAtTime>
-					<OccurrenceDate>1679385600000</OccurrenceDate>
-					<OccurrenceTime Class="CodeUnitValue">
-						<Code><![CDATA[0]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</OccurrenceTime>
-					<RecurrenceCode Class="CodeUnitValue">
-						<Code><![CDATA[1]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</RecurrenceCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Width>260</Width>
-					<Height>210</Height>
-					<BackgroundColor/>
-					<BorderColor/>
-					<ChartArea>
-						<XOffset>50</XOffset>
-						<YOffset>30</YOffset>
-						<Width>180</Width>
-						<Height>120</Height>
-						<BackgroundColor>-1</BackgroundColor>
-						<BorderColor>-16777216</BorderColor>
-						<GridColor>-12566464</GridColor>
-					</ChartArea>
-					<Legend>
-						<Place>SOUTH</Place>
-						<TextColor>-16777216</TextColor>
-						<Size>30</Size>
-					</Legend>
-					<Labels>
-						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
-						<VerLabelsPosition>DEFAULT</VerLabelsPosition>
-						<TextColor>-12566464</TextColor>
-					</Labels>
-					<ShowLegend>true</ShowLegend>
-					<TimeWindowsMovementType>MOVEMENT_WITH_TIME</TimeWindowsMovementType>		
-					<TimeWindowUnits>MODEL_TIME_UNIT</TimeWindowUnits>
-					<VerScaleFromExpression><![CDATA[0]]></VerScaleFromExpression>
-					<VerScaleToExpression><![CDATA[1]]></VerScaleToExpression>
-					<VerScaleType>AUTO</VerScaleType>
-					<DrawLine>true</DrawLine>
-					<Interpolation>LINEAR</Interpolation>
-					<DatasetExpression>  
-						<Title><![CDATA[chargelevel]]></Title>
-					<Id>1679339814490</Id>
-					<Expression><![CDATA[my_dataset]]></Expression>
-					<Color>-14774017</Color>
-					<Expression2><![CDATA[chargelevel]]></Expression2>
-					<Expression2Flag>true</Expression2Flag>
-						<PointStyle>NONE</PointStyle>
-						<LineWidth>1.0</LineWidth>
-					</DatasetExpression>
-					<SamplesToKeep>100</SamplesToKeep>
-					<TimeWindowExpression><![CDATA[100]]></TimeWindowExpression>
-					<FillAreaUnderLine>false</FillAreaUnderLine>
-					<LabelFormat>MODEL_TIME_UNITS</LabelFormat>
-    			</TimePlot>
 			</Presentation>
 
 				</Level>
@@ -3091,6 +3031,50 @@ dischargerate=10;]]></EntryAction>
 			</ScaleRuler>
 			<CurrentLevel>1679328564247</CurrentLevel>
 			<ConnectionsId>1679328564243</ConnectionsId>
+			<Variables>
+				<Variable Class="Parameter">
+					<Id>1679580898683</Id>
+					<Name><![CDATA[weight]]></Name>
+					<X>110</X><Y>70</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<ParameterEditor>
+							<Id>1679580898681</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1679581244590</Id>
+					<Name><![CDATA[Type]]></Name>
+					<X>110</X><Y>140</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[String]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<ParameterEditor>
+							<Id>1679581244588</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+			</Variables>
 			<AgentLinks>
 				<AgentLink>
 					<Id>1679328564243</Id>
