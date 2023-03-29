@@ -319,7 +319,7 @@
 					</Parameters>
 					<ReplicationFlag>true</ReplicationFlag>
 					<Replication Class="CodeValue">
-						<Code><![CDATA[2]]></Code>
+						<Code><![CDATA[5]]></Code>
 					</Replication>
 					<CollectionType>ARRAY_LIST_BASED</CollectionType>
 					<InEnvironment>true</InEnvironment>	
@@ -740,7 +740,7 @@
     			<BarChart>
 					<Id>1679582301033</Id>
 					<Name><![CDATA[chart]]></Name>
-					<X>80</X><Y>640</Y>
+					<X>630</X><Y>320</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -758,15 +758,15 @@
 						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
 					</RecurrenceCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
-					<Width>260</Width>
-					<Height>210</Height>
+					<Width>360</Width>
+					<Height>280</Height>
 					<BackgroundColor/>
 					<BorderColor/>
 					<ChartArea>
 						<XOffset>50</XOffset>
 						<YOffset>30</YOffset>
-						<Width>180</Width>
-						<Height>120</Height>
+						<Width>280</Width>
+						<Height>170</Height>
 						<BackgroundColor>-1</BackgroundColor>
 						<BorderColor>-16777216</BorderColor>
 						<GridColor>-12566464</GridColor>
@@ -774,7 +774,7 @@
 					<Legend>
 						<Place>SOUTH</Place>
 						<TextColor>-16777216</TextColor>
-						<Size>30</Size>
+						<Size>50</Size>
 					</Legend>
 					<Labels>
 						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
@@ -787,14 +787,35 @@
 					<Expression><![CDATA[AGVs(0).chargelevel]]></Expression>
 					<Color>-2448096</Color>
 					<Expression2Flag>true</Expression2Flag>
-						<Title><![CDATA[item]]></Title>
+						<Title><![CDATA[AGV_1]]></Title>
 					</DataItem>
 					<DataItem>
 					<Id>0</Id>
 					<Expression><![CDATA[AGVs(1).chargelevel]]></Expression>
 					<Color>-9728477</Color>
 					<Expression2Flag>true</Expression2Flag>
-						<Title><![CDATA[item1]]></Title>
+						<Title><![CDATA[AGV_2]]></Title>
+					</DataItem>
+					<DataItem>
+					<Id>0</Id>
+					<Expression><![CDATA[AGVs(2).chargelevel]]></Expression>
+					<Color>-16728065</Color>
+					<Expression2Flag>true</Expression2Flag>
+						<Title><![CDATA[AGV_3]]></Title>
+					</DataItem>
+					<DataItem>
+					<Id>0</Id>
+					<Expression><![CDATA[AGVs(3).chargelevel]]></Expression>
+					<Color>-4565549</Color>
+					<Expression2Flag>true</Expression2Flag>
+						<Title><![CDATA[AGV_4]]></Title>
+					</DataItem>
+					<DataItem>
+					<Id>0</Id>
+					<Expression><![CDATA[AGVs(4).chargelevel]]></Expression>
+					<Color>-2354116</Color>
+					<Expression2Flag>true</Expression2Flag>
+						<Title><![CDATA[AGV_5]]></Title>
 					</DataItem>
 					<ScaleFromExpression><![CDATA[0]]></ScaleFromExpression>
 					<ScaleToExpression><![CDATA[1]]></ScaleToExpression>
@@ -955,7 +976,7 @@
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100" Height="30">
-						<EntryAction><![CDATA[Product Unilokk = new Product();
+						<EntryAction><![CDATA[Product Unilokk = new Product(200,"unfinished");
 main.Box.add(Unilokk)]]></EntryAction>
 						<FillColor/>
 					</Properties>
@@ -1550,7 +1571,23 @@ main.Box.add(Unilokk)]]></EntryAction>
 
 Dann durchläuft der Code eine Schleife, um das AGV-Objekt mit dem höchsten Ladestand ("selected_agv_chargelvl") in der Liste "main.AGVs" zu finden. Dazu wird die Schleife verwendet, um jedes AGV-Objekt in der Liste "main.AGVs" nacheinander zu überprüfen. Wenn der Ladestand des derzeit überprüften AGV-Objekts ("selected_agv_chargelvl") größer oder gleich dem bisher maximalen Ladestand ("max_agv_chargelvl") ist, wird der max_chargelvl aktualisiert und "current_agv" wird auf das derzeit überprüfte AGV-Objekt ("selected_agv") gesetzt.
 
-Am Ende dieser Schleife sollte das "current_agv" Objekt dasjenige AGV-Objekt sein, das den höchsten Ladestand in der Liste "main.AGVs" aufweist.]]></Description>
+Am Ende dieser Schleife sollte das "current_agv" Objekt dasjenige AGV-Objekt sein, das den höchsten Ladestand in der Liste "main.AGVs" aufweist.
+
+
+
+Dieser Code durchläuft eine Schleife, um das AGV mit dem höchsten Ladestand (chargelevel) zu finden, solange der Ladestand höher als 30 ist. Der gefundene AGV wird in der Variable "current_agv" gespeichert.
+
+Der Code funktioniert wie folgt:
+
+Die erste Zeile definiert eine Variable "current_agv" und weist ihr das erste AGV im Array "main.AGVs" zu (mit Index 0).
+
+Die nächste Zeile definiert eine Variable "max_agv_chargelvl" und weist ihr den Wert 0 zu. Diese Variable wird später verwendet, um den höchsten Ladestand zu speichern.
+
+Die Schleife durchläuft jedes AGV im Array "main.AGVs" und überprüft, ob der Ladestand des aktuellen AGV größer oder gleich dem aktuellen höchsten Ladestand "max_agv_chargelvl" ist und ob der Ladestand größer als 30 ist.
+
+Wenn dies der Fall ist, wird der aktuelle Ladestand in der Variable "max_agv_chargelvl" gespeichert und das aktuelle AGV wird in der Variable "current_agv" gespeichert.
+
+Nachdem die Schleife durchlaufen ist, enthält die Variable "current_agv" das AGV mit dem höchsten Ladestand (solange dieser größer als 30 ist).]]></Description>
 					<X>420</X><Y>160</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
@@ -1559,12 +1596,12 @@ Am Ende dieser Schleife sollte das "current_agv" Objekt dasjenige AGV-Objekt sei
 					<Properties Width="100" Height="30">
 						<EntryAction><![CDATA[current_agv = main.AGVs(0);
 double max_agv_chargelvl = 0;
-for (AGV selected_agv : main.AGVs)
+for (AGV agv : main.AGVs)
 {
-if (selected_agv.chargelevel >= max_agv_chargelvl && selected_agv.chargelevel >30)
+if (agv.chargelevel >= max_agv_chargelvl && agv.chargelevel >30)
 	{
-	max_agv_chargelvl = selected_agv.chargelevel;
-	current_agv = selected_agv;
+	max_agv_chargelvl = agv.chargelevel;
+	current_agv = agv;
 	}
 }]]></EntryAction>
 						<FillColor/>
@@ -1603,7 +1640,7 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1678917057045</Id>
-					<Name><![CDATA[waiting_for_unloading]]></Name>
+					<Name><![CDATA[waiting_for_route_ending]]></Name>
 					<X>420</X><Y>380</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
@@ -1776,7 +1813,7 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 						<MessageType><![CDATA[Object]]></MessageType>
 						<DefaultTransition>true</DefaultTransition>
 						<FilterType><![CDATA[equalsTo]]></FilterType>
-						<EqualsExpression><![CDATA["unloading_finished"]]></EqualsExpression>
+						<EqualsExpression><![CDATA["route_ended"]]></EqualsExpression>
 						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
 					</Properties>	
 				</StatechartElement>
@@ -2052,13 +2089,28 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1678916925786</Id>
 					<Name><![CDATA[waiting_at_chargingstation]]></Name>
+					<Description><![CDATA[while(chargelevel >= 100)
+	{
+    dischargerate = 0;
+	}
+if (chargelevel < 100)
+	{
+    dischargerate = -10;
+	}	]]></Description>
 					<X>390.758</X><Y>50</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100.50568900126422" Height="30">
-						<EntryAction><![CDATA[dischargerate=-10;]]></EntryAction>
+						<EntryAction><![CDATA[if (chargelevel < 100)
+	{
+	dischargerate= -5;
+	}
+else 
+	{
+	dischargerate= 0;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2073,7 +2125,10 @@ Je nachdem, wie das AGV-Modell in der Simulation definiert ist, kann diese Nachr
 					<Properties Width="100.50568900126422" Height="30">
 						<EntryAction><![CDATA[moveTo(main.Stations(i));
 
-dischargerate=1.0;]]></EntryAction>
+if (chargelevel > 0)
+	{
+	dischargerate= 1.0;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2090,7 +2145,10 @@ dischargerate=1.0;]]></EntryAction>
 						<EntryAction><![CDATA[current_load.add(main.Box.getLast());
 main.Box.removeLast();
 
-dischargerate=0.5]]></EntryAction>
+if (chargelevel > 0)
+	{
+	dischargerate= 0.5;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2116,7 +2174,10 @@ if (main.Stations.size()>= i)
 	}
 }
 
-dischargerate=1.5;]]></EntryAction>
+if (chargelevel > 0)
+	{
+	dischargerate= 1.5;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2133,7 +2194,10 @@ dischargerate=1.5;]]></EntryAction>
 						<EntryAction><![CDATA[//Produkte abladen
 
 
-dischargerate=0.5]]></EntryAction>
+if (chargelevel > 0)
+	{
+	dischargerate= 0.5;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2151,7 +2215,7 @@ dischargerate=0.5]]></EntryAction>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1679329293143</Id>
 					<Name><![CDATA[driving_to_charging_station]]></Name>
-					<X>40</X><Y>270</Y>
+					<X>40</X><Y>180</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2159,33 +2223,23 @@ dischargerate=0.5]]></EntryAction>
 					<Properties Width="100.50568900126422" Height="30">
 						<EntryAction><![CDATA[moveTo(main.Chargingstation);
 
-dischargerate=1.0;]]></EntryAction>
-						<FillColor/>
-					</Properties>
-				</StatechartElement>
-				<StatechartElement Class="State" ParentState="ROOT_NODE">
-					<Id>1679329310942</Id>
-					<Name><![CDATA[charging]]></Name>
-					<X>40</X><Y>170</Y>
-					<Label><X>9</X><Y>11</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties Width="100.50568900126422" Height="30">
-						<EntryAction><![CDATA[dischargerate=-10;]]></EntryAction>
+if (chargelevel < 100)
+	{
+	dischargerate= 1.0;
+	}]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1679329363028</Id>
-					<Name><![CDATA[unloading_finished]]></Name>
-					<X>40</X><Y>470</Y>
+					<Name><![CDATA[route_ended]]></Name>
+					<X>40</X><Y>370</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties Width="100" Height="30">
-						<EntryAction><![CDATA[send("unloading_finished", main.FMS);]]></EntryAction>
+						<EntryAction><![CDATA[send("route_ended", main.FMS);]]></EntryAction>
 						<FillColor/>
 					</Properties>
 				</StatechartElement>
@@ -2348,7 +2402,7 @@ dischargerate=1.0;]]></EntryAction>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>-338</X><Y>0</Y></Point>
-						<Point><X>-338</X><Y>-70</Y></Point>
+						<Point><X>-338</X><Y>-170</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1678916925826" Target="1679329363028" Trigger="condition">
@@ -2431,14 +2485,14 @@ dischargerate=1.0;]]></EntryAction>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1679329349859</Id>
 					<Name><![CDATA[transition1]]></Name>
-					<X>90</X><Y>470</Y>
+					<X>90</X><Y>370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>0</X><Y>-170</Y></Point>
+						<Point><X>0</X><Y>-160</Y></Point>
 					</Points>
 					<IconOffset>90.0</IconOffset>
 					<Properties Source="1679329363028" Target="1679329293143" Trigger="message">
@@ -2461,48 +2515,18 @@ dischargerate=1.0;]]></EntryAction>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1679329380507</Id>
 					<Name><![CDATA[transition4]]></Name>
-					<X>90</X><Y>270</Y>
+					<X>90</X><Y>180</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>0</X><Y>-70</Y></Point>
+						<Point><X>0</X><Y>-110</Y></Point>
+						<Point><X>300.758</X><Y>-110</Y></Point>
 					</Points>
 					<IconOffset>30.0</IconOffset>
-					<Properties Source="1679329293143" Target="1679329310942" Trigger="arrival">
-						<Timeout Class="CodeUnitValue">
-							<Code><![CDATA[1]]></Code>
-							<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-						</Timeout>
-						<Condition><![CDATA[true]]></Condition>
-						<Rate Class="CodeUnitValue">
-							<Code><![CDATA[1]]></Code>
-							<Unit Class="RateUnits"><![CDATA[PER_SECOND]]></Unit>
-						</Rate>
-						<MessageType><![CDATA[Object]]></MessageType>
-						<DefaultTransition>true</DefaultTransition>
-						<FilterType><![CDATA[unconditionally]]></FilterType>
-						<EqualsExpression><![CDATA["text"]]></EqualsExpression>
-						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
-					</Properties>	
-				</StatechartElement>
-				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
-					<Id>1679329501382</Id>
-					<Name><![CDATA[transition]]></Name>
-					<X>90</X><Y>170</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>0</X><Y>-100</Y></Point>
-						<Point><X>300</X><Y>-100</Y></Point>
-					</Points>
-					<IconOffset>260.0</IconOffset>
-					<Properties Source="1679329310942" Target="1678916925786" Trigger="condition">
+					<Properties Source="1679329293143" Target="1678916925786" Trigger="arrival">
 						<Timeout Class="CodeUnitValue">
 							<Code><![CDATA[1]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
